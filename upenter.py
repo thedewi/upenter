@@ -43,3 +43,7 @@ def main():
     ctypes.windll.user32.keybd_event(VK_ENTER, 0, 0, 0)
     ctypes.windll.user32.keybd_event(VK_ENTER, 0, 2, 0)
     ctypes.windll.user32.SetForegroundWindow(previous_hwnd)
+
+
+if __name__ == "__main__":
+    main()
