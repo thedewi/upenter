@@ -1,25 +1,68 @@
-# Installation
+# upenter
 
-pipx (`pip install pipx`) can manage a venv for this project:
+Presses up, enter in your terminal.
 
-```bash
-pipx install --editable .
-```
+Windows only.
 
-In Windows, this creates `~/pipx/venvs/upenter/Scripts/upenter.exe`, symlinked in `~/.local/bin/`.
-
-You can also invoke its python directly:
-
-```cmd
-"%USERPROFILE%\pipx\venvs\upenter\Scripts\pythonw.exe" upenter.py
-```
-
-## Use from vscode
-
-I have copied the launcher to a deterministic path and configured it as the vscode "external terminal":
+## Installation
 
 ```bash
-cp -i ~/.local/bin/upenter.exe /c/dewi/bin/
+# Make sure uv is installed
+winget install --interactive --id astral-sh.uv
+uv tool update-shell
+
+# Install as global tool
+uv tool install git+https://github.com/thedewi/upenter.git
 ```
 
-Key binding: Ctrl+Shift+C
+## Use from VS Code
+
+This tool can be installed as the "External Terminal" so it can be easily triggered with a key binding.
+
+Open "User Settings" and edit the JSON to include:
+
+```json
+{
+    "terminal.external.windowsExec": "upenter",
+}
+```
+
+Open "Keyboard Shortcuts" and edit the JSON to add these two bindings:
+
+```json
+[
+    {
+        "key": "alt+d",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                {
+                    "command": "workbench.action.files.save"
+                },
+                {
+                    "command": "workbench.action.terminal.sendSequence",
+                    "args": {
+                        "text": "\u001b[A\r"
+                    }
+                }
+            ]
+        },
+        "when": "view.terminal.visible"
+    },
+    {
+        "key": "alt+d",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                {
+                    "command": "workbench.action.files.save"
+                },
+                {
+                    "command": "workbench.action.terminal.openNativeConsole",
+                }
+            ]
+        },
+        "when": "!view.terminal.visible"
+    }
+]
+```

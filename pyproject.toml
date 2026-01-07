@@ -1,9 +1,11 @@
 [project]
 name = "upenter"
 version = "0.0.0"
+requires-python = ">=3.14"
 dependencies = ["pywin32"]
-gui-scripts = { upenter = "upenter:main" }
 
-[build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+[project.gui-scripts]
+upenter = "main:main"
+
+[tool.uv]
+package = true
